@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Recipe implements Serializable {
     
-    private String name;
-    private String description;
+    String name;
+    String description;
     ArrayList<String> ingredients = new ArrayList<>();
     ArrayList<String> instructions = new ArrayList<>();
     int instructionssize = instructions.size();
@@ -20,6 +20,7 @@ public class Recipe implements Serializable {
         this.instructionssize = instructions.size();
         this.ingredientssize = ingredients.size();
     }
+
 
     public void printIngredients(ArrayList<String> x, int y) {
         for(int i = 0; i < y; i++) {
@@ -43,6 +44,7 @@ public class Recipe implements Serializable {
             num++;
         }
     }
+
 
     public String toString(){
         return "Recipe Name: " + name + "\nRecipe Description: " + description + "\nIngredients: " + ingredients + "\nInstructions: " + instructions;

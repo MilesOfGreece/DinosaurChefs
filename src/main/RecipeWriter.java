@@ -92,13 +92,50 @@ public class RecipeWriter {
 
             if (input1.equals("2")) {
 
-                System.out.println("Recipe Book:");
-                System.out.println("#######################################################");
-                for (int i = 0; i < recipeBook.size(); i++) {
-                    //System.out.println(recipeBook.get(i)); //this will call toString()
-                    recipeBook.get(i).printEverything();
-                    System.out.println("##############################################################");
+                System.out.println("Would you like to search by name, or select from list? Type one of the following options: ");
+                System.out.println("1.) Search");
+                System.out.println("2.) Select from list");
+                Scanner scan2 = new Scanner(System.in); //make a scanner object to take in user input
+                String userSearch = scan2.next();
+
+                if (userSearch.equals("1")) {
+                    System.out.println("Type your recipe name here: ");
+                    userSearch = scan2.next();
+                    for (int i = 0; i < recipeBook.size(); i++) {
+                        String x = recipeBook.get(i).name;
+                        if (x.toLowerCase().equals(userSearch.toLowerCase())) {
+                            System.out.println("Found a recipe for " + userSearch + "!");
+                            System.out.println("Would you like to view ingredients one by one? Or just view the entire recipe?");
+                            System.out.println("Type one of the following options:");
+                            System.out.println("1.) One by one");
+                            System.out.println("2.) View the entire recipe");
+                            userSearch = scan2.next();
+                            if (userSearch.equals("1")) {
+                                System.out.println("Recipe Name: " + x);
+                                System.out.println("Description: " + recipeBook.get(i).description);
+                                System.out.println("Ingredients: " + recipeBook.get(i).ingredients);
+                                System.out.println("Type any character to read next step: ");
+                                userSearch = scan2.next();
+                                int counter = 0;
+                                while (counter < recipeBook.get(i).instructionssize) {
+                                    System.out.println("Step " + (counter + 1) + ": " + recipeBook.get(i).instructions.get(counter));
+                                    counter++;
+                                    userSearch = scan2.next();
+                                }
+                            }
+                        }
+                    }
                 }
+
+                // System.out.println("Recipes:");
+                // System.out.println("#######################################################");
+                // for (int i = 0; i < recipeBook.size(); i++) {
+                //     //System.out.println(recipeBook.get(i)); //this will call toString()
+                //     System.out.println("Recipe " + (i + 1) + ":");
+                //     System.out.println(recipeBook.get(i).name);
+                //     //recipeBook.get(i).printEverything();
+                //     System.out.println("##############################################################");
+                // }
 
                 //prompt user to continue using program
                 System.out.println("Would you like to do anything else? Type one of the following options:");
