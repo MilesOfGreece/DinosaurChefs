@@ -126,6 +126,16 @@ public class RecipeWriter {
                         }
                     }
                 }
+                else if (userSearch.equals("2")) {
+                    System.out.println("Recipes:");
+                    for (int i = 0; i < recipeBook.size()-1; i++) {
+                        System.out.println( i+1 + ".)"+ recipeBook.get(i+1).name ); 
+                    }
+                    System.out.println("Type:");
+                    int r_num = scan2.nextInt();
+                    System.out.println("Found a recipe for " + recipeBook.get(r_num).name + "!");
+                    recipeBook.get(r_num).printEverything();
+                }
 
                 // System.out.println("Recipes:");
                 // System.out.println("#######################################################");
