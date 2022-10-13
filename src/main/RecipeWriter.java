@@ -33,7 +33,7 @@ public class RecipeWriter {
         System.out.println("Success!");
         menu(); // display main menu 
 
-        Scanner scan = new Scanner(System.in); //make a scanner object to take in user input
+        Scanner scan = new Scanner(System.in);
         String input1 = scan.next();
 
         while(!input1.toLowerCase().equals("3")) { //master while loop, terminates when we quit
@@ -58,8 +58,6 @@ public class RecipeWriter {
                 System.out.println("----------------------------------------");
                 System.out.print("Type the number of ingredients:");
                 ingredients_num = Integer.parseInt(scan.nextLine());
-                //System.out.println("List your ingredients, type \"done\" to finish: ");
-                //String input4 = scan.next();
                 ArrayList<String> myIngredients = new ArrayList<>();
                 for(int i=1; i<=ingredients_num; i++) {
                     System.out.print(i + ": "); 
@@ -127,7 +125,8 @@ public class RecipeWriter {
                             }
                             //display instructions one by one
                             else if(userSearch.equals("2")){
-                                
+                                System.out.println("-----------------------------------------");
+
 
                             }
                         }
@@ -156,21 +155,34 @@ public class RecipeWriter {
                             }
                             //display instructions one by one
                             else if(userSearch.equals("2")){
-                                
-
+                                System.out.println("----------------------------------------");
+                                chosen_Recipe.printAll_noInstruction();
+                                System.out.println("Instructions:");
+                                int count_instructions = 0;
+                                while (count_instructions < chosen_Recipe.getInstructions().size()) {
+                                    System.out.println("Press return to continue.(enter 'exit' to stop)");
+                                    String leave = scan2.nextLine();
+                                    if (leave.toLowerCase().equals("exit")) {
+                                         break;
+                                    } 
+                                    else {
+                                        System.out.println(chosen_Recipe.getInstructions().get(count_instructions));
+                                        System.out.println("");
+                                        count_instructions++;
+                                    }
+                                }
                             }
 
-
+                }
+            
+                else{
+                    System.out.println("Invalid input");
                 }
 
-                
-                menu();
+                menu();  // continue prompting menu
                 input1 = scan.next(); //set their response to while loop variable
-                //1scan.close(); // close scanner
             }
         }
-        
-
-        
+        scan.close(); // close the scanner
     }
 }
