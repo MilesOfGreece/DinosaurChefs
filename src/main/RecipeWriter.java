@@ -44,14 +44,13 @@ public class RecipeWriter {
                 System.out.println("Name of recipe you want to create: ");
                 String input2 = scan.nextLine(); //input2 = name
                 input2 = input2 + scan.nextLine();
-                //System.out.println();
                 
 
                 System.out.println("----------------------------------------");
                 System.out.println("Write a description for your recipe: ");
                 String input3 = scan.nextLine(); //input3 = description
                 input3 = input3 + scan.nextLine();
-                //System.out.println();
+
 
                 Integer ingredients_num = 0;
                 System.out.println("----------------------------------------");
@@ -95,20 +94,20 @@ public class RecipeWriter {
                 System.out.println("1.) Search by name");
                 System.out.println("2.) Select from list");
                 Scanner scan2 = new Scanner(System.in); //make a scanner object to take in user input
-                String userSearch = scan2.next();
+                String userSearch = scan2.next(); ////////////2
 
                 // search by name 
                 if (userSearch.equals("1")) {
                     System.out.println("----------------------------------------");
                     System.out.println("Type your recipe name here: ");
                     scan2.skip("[\r\n]+");
-                    String name = scan2.nextLine(); 
+                    String want_name = scan2.nextLine(); 
                     for (int i = 0; i < recipeBook.size(); i++) {
                         String x = recipeBook.get(i).name;
-                        if (x.toLowerCase().equals(name.toLowerCase())) {
+                        if (x.toLowerCase().equals(want_name.toLowerCase())) {
                             Recipe found_recipe = recipeBook.get(i); 
                             System.out.println("----------------------------------------");
-                            System.out.println("Found a recipe for " + name + "!");
+                            System.out.println("Found a recipe for " + want_name + "!");
                             System.out.println("");
                             System.out.println("Would you like to view instruction steps one by one? Or just view the entire recipe?");
                             System.out.println("Type one of the following options:");
@@ -201,9 +200,19 @@ public class RecipeWriter {
                 menu();  // continue prompting menu
                 input1 = scan.next(); //set their response to while loop variable
             
-                scan2.close(); 
             }
+            else{
+                System.out.println("Invalid input. Try again and type the number of choice");
+                menu();
+                input1 = scan.next(); 
+            }
+            //scan2.close(); 
         }
         scan.close();
+        System.out.println("");
+        System.out.println("Thank you for using our recipe book!");
+        System.out.println("See you next time! You are very welcome to contribute any recipe you like.");
+
+
     }
 }
