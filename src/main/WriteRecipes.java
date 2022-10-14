@@ -29,6 +29,26 @@ public class WriteRecipes {
         Recipe ramen = new Recipe("Ramen", "instant ramen", ingredients2, instructions2);
         recipeBook.add(ramen);
 
+        ArrayList<String> ingredients3 = new ArrayList<String>();
+        ingredients3.add("flour");
+        ingredients3.add("water");
+        ingredients3.add("malt syrup");
+        ArrayList<String> instructions3 = new ArrayList<String>();
+        instructions3.add("mix flour water and salt");
+        instructions3.add("wait for 2-4hours");
+        instructions3.add("bake at 450 degrees");
+        Recipe bagel = new Recipe("bagel", "great start of the morning", ingredients3, instructions3);
+        recipeBook.add(bagel);
+
+        ArrayList<String> ingredients4 = new ArrayList<String>();
+        ingredients4.add("potato");
+        ingredients4.add("oil");
+        ArrayList<String> instructions4 = new ArrayList<String>();
+        instructions4.add("cut potato into stripes");
+        instructions4.add("heat oil and deep fry potato strips for at leat twice until they have crispy golden looks");
+        Recipe fries = new Recipe("fries", "great sides with burger", ingredients2, instructions2);
+        recipeBook.add(fries);
+        
 
         FileOutputStream fos = new FileOutputStream("recipeBook.ser");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
