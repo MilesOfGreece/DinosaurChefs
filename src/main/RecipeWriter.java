@@ -16,25 +16,24 @@ public class RecipeWriter {
         System.out.println("1.) Create a new recipe");
         System.out.println("2.) View recipe");
         System.out.println("3.) Quit");
+        System.out.println("==============================================================!");
+        System.out.println("");
         System.out.print("Type your choice here: ");
     }
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         System.out.print("Initializing recipe book......."); //load in recipe book to retrieve existing recipes
-
         FileInputStream fis = new FileInputStream("recipeBook.ser");
         ObjectInputStream ois = new ObjectInputStream(fis);
-
         ArrayList<Recipe> recipeBook = new ArrayList<>();
         recipeBook = (ArrayList<Recipe>) ois.readObject();
         ois.close();
         fis.close();
-
         System.out.println("Success!");
         menu(); // display main menu 
-
         Scanner scan = new Scanner(System.in);
         String input1 = scan.next();
+
 
         while(!input1.toLowerCase().equals("3")) { //master while loop, terminates when we quit
 
@@ -59,6 +58,7 @@ public class RecipeWriter {
                 System.out.print("Type the number of ingredients:");
                 ingredients_num = Integer.parseInt(scan.nextLine());
                 ArrayList<String> myIngredients = new ArrayList<>();
+                System.out.println("Type ingredients one by one:");
                 for(int i=1; i<=ingredients_num; i++) {
                     System.out.print(i + ": "); 
                     myIngredients.add(scan.nextLine());
@@ -69,6 +69,7 @@ public class RecipeWriter {
                 System.out.println("Type the number of instructions:");
                 instructions_num = Integer.parseInt(scan.nextLine());
                 ArrayList<String> myInstructions = new ArrayList<>();
+                System.out.println("Type instructions one by one:");
                 for(int i=1; i<=instructions_num; i++) {
                     System.out.print(i + ": "); 
                     myInstructions.add(scan.nextLine());
@@ -79,16 +80,9 @@ public class RecipeWriter {
                 FileOutputStream fos = new FileOutputStream("recipeBook.ser");
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(recipeBook); //write the recipeBook to the file
-    
                 oos.close();
                 fos.close();
                 System.out.println("Wrote to recipe book!");
-    
-                // System.out.println("Name = " + input2);
-                // System.out.println("Description = " + input3);
-                // System.out.println("Ingredients: " + myIngredients);
-                // System.out.println("Instructions: " + myInstructions);
-    
                 //prompt user to continue using program
                 menu();
                 input1 = scan.next(); //set their response to while loop variable
@@ -103,37 +97,56 @@ public class RecipeWriter {
                 Scanner scan2 = new Scanner(System.in); //make a scanner object to take in user input
                 String userSearch = scan2.next();
 
+                // search by name 
                 if (userSearch.equals("1")) {
                     System.out.println("----------------------------------------");
                     System.out.println("Type your recipe name here: ");
-                    userSearch = scan2.next();
+                    scan2.skip("[\r\n]+");
+                    String name = scan2.nextLine(); 
                     for (int i = 0; i < recipeBook.size(); i++) {
                         String x = recipeBook.get(i).name;
-                        if (x.toLowerCase().equals(userSearch.toLowerCase())) {
+                        if (x.toLowerCase().equals(name.toLowerCase())) {
                             Recipe found_recipe = recipeBook.get(i); 
-                            System.out.println("Found a recipe for " + userSearch + "!");
+                            System.out.println("----------------------------------------");
+                            System.out.println("Found a recipe for " + name + "!");
                             System.out.println("");
                             System.out.println("Would you like to view instruction steps one by one? Or just view the entire recipe?");
                             System.out.println("Type one of the following options:");
                             System.out.println("1.) One by one");
                             System.out.println("2.) View the entire recipe");
-                            userSearch = scan2.next();
+                            System.out.println("");
+                            String instruction_way = scan2.next();
                             // display whole recipe
-                            if (userSearch.equals("2")) {
+                            if (instruction_way.equals("2")) {
                                 System.out.println("----------------------------------------");
                                 found_recipe.printEverything();
                             }
-                            //display instructions one by one
-                            else if(userSearch.equals("2")){
-                                System.out.println("-----------------------------------------");
-
-
+                            // display instructions one by one
+                            else if(instruction_way.equals("1")){
+                                System.out.println("----------------------------------------");
+                                found_recipe.printAll_noInstruction();
+                                System.out.println("Instructions:");
+                                int count_instructions = 0;
+                                while (count_instructions < found_recipe.getInstructions().size()) {
+                                    String quit = scan2.nextLine();
+                                    if (quit.toLowerCase().equals("exit")) {
+                                        break;
+                                    } 
+                                    else {
+                                        System.out.println("");
+                                        System.out.println("Step "+ (count_instructions+1) + ":");
+                                        System.out.println("[Press return to continue.(enter 'exit' to stop)]");
+                                        System.out.println(found_recipe.getInstructions().get(count_instructions));
+                                        System.out.println("");
+                                        count_instructions++;
+                                    }
+                                }
                             }
                         }
                     }
-                    scan2.close(); // close scanner 
                 }
                 else if (userSearch.equals("2")) {
+                    System.out.println("---------------------------------------:");
                     System.out.println("Recipes:");
                     for (int i = 0; i < recipeBook.size()-1; i++) {
                         System.out.println( i+1 + ".)"+ recipeBook.get(i+1).name ); 
@@ -147,42 +160,50 @@ public class RecipeWriter {
                     System.out.println("Type one of the following options:");
                     System.out.println("1.) One by one");
                     System.out.println("2.) View the entire recipe");
-                    userSearch = scan2.next();
+                    String instruction_choice = scan2.next();
                             // display whole recipe
-                            if (userSearch.equals("2")) {
+                            if (instruction_choice.equals("2")) {
                                 System.out.println("----------------------------------------");
                                 chosen_Recipe.printEverything();
                             }
                             //display instructions one by one
-                            else if(userSearch.equals("2")){
+                            else if(instruction_choice.equals("1")){
                                 System.out.println("----------------------------------------");
                                 chosen_Recipe.printAll_noInstruction();
                                 System.out.println("Instructions:");
                                 int count_instructions = 0;
                                 while (count_instructions < chosen_Recipe.getInstructions().size()) {
-                                    System.out.println("Press return to continue.(enter 'exit' to stop)");
                                     String leave = scan2.nextLine();
                                     if (leave.toLowerCase().equals("exit")) {
                                          break;
                                     } 
                                     else {
+                                        System.out.println("");
+                                        System.out.println("Step "+ (count_instructions+1) + ":");
+                                        System.out.println("[Press return to continue.(enter 'exit' to stop)]");
                                         System.out.println(chosen_Recipe.getInstructions().get(count_instructions));
                                         System.out.println("");
                                         count_instructions++;
                                     }
                                 }
                             }
+                            else{
+                                System.out.println("Invalid input! try typing the recipe number in parenthesis");
+                            }
 
                 }
             
                 else{
-                    System.out.println("Invalid input");
+                    System.out.println("Invalid input. Try again");
+                    menu();  // continue prompting menu
+                    input1 = scan.next(); //set their response to while loop variable
                 }
-
                 menu();  // continue prompting menu
                 input1 = scan.next(); //set their response to while loop variable
+            
+                scan2.close(); 
             }
         }
-        scan.close(); // close the scanner
+        scan.close();
     }
 }
