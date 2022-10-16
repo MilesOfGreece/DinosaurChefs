@@ -90,7 +90,7 @@ public class RecipeWriter {
                 input1 = scan.next(); //set their response to while loop variable
             }
 
-            if (input1.equals("2")) {
+            if (input1.equals("2") || input1.toLowerCase().equals("view")) {
 
                 System.out.println("Would you like to search by name, or select from list? Type one of the following options: ");
                 System.out.println("1.) Search");
@@ -98,7 +98,7 @@ public class RecipeWriter {
                 Scanner scan2 = new Scanner(System.in); //make a scanner object to take in user input
                 String userSearch = scan2.next();
 
-                if (userSearch.equals("1")) {
+                if (userSearch.equals("1") || userSearch.toLowerCase().equals("search")) {
                     System.out.println("Type your recipe name here: ");
                     userSearch = scan2.next();
                     for (int i = 0; i < recipeBook.size(); i++) {
@@ -126,15 +126,70 @@ public class RecipeWriter {
                         }
                     }
                 }
-                else if (userSearch.equals("2")) {
+                else if (userSearch.equals("2") || userSearch.toLowerCase().equals("select from list") || userSearch.toLowerCase().equals("select")) {
+                    System.out.println("Type the recipe or number you'd like");
                     System.out.println("Recipes:");
-                    for (int i = 0; i < recipeBook.size()-1; i++) {
-                        System.out.println( i+1 + ".)"+ recipeBook.get(i+1).name ); 
+                    for (int i = 0; i < recipeBook.size(); i++) {
+                        System.out.println( i+1 + ".)"+ recipeBook.get(i).name ); 
                     }
                     System.out.println("Type:");
-                    int r_num = scan2.nextInt();
-                    System.out.println("Found a recipe for " + recipeBook.get(r_num).name + "!");
-                    recipeBook.get(r_num).printEverything();
+                    //int r_num = scan2.nextInt();
+                    String r_String = scan2.next();
+                    r_String = r_String + scan2.nextLine();
+                    char first = r_String.charAt(0);
+                    if (Character.isDigit(first)) {
+                        int r_num = Integer.parseInt(r_String);
+                        r_num--;
+
+                        if (r_num < recipeBook.size()) {
+                            System.out.println("Found a recipe for " + recipeBook.get(r_num).name + "!");
+                            recipeBook.get(r_num).printEverything();
+                            System.out.println("#######################################################\n");
+                        }
+                        else {
+                            System.out.println("Error: The number you typed is not in your recipe book!");
+                        }
+    
+
+
+                    } else {
+                        boolean myBool = false;
+                        for (int i = 0; i < recipeBook.size(); i++) {
+                            //System.out.println("Index " + i + " name: " + recipeBook.get(i).name.toLowerCase() + " | " + r_String.toLowerCase());
+                            if (r_String.toLowerCase().equals(recipeBook.get(i).name.toLowerCase())) {
+                                System.out.println("Found a recipe for " + recipeBook.get(i).name + "!\n");
+                                recipeBook.get(i).printEverything();
+                                System.out.println("#######################################################\n");
+                                myBool = true;
+                            }
+                        }
+
+                        if (myBool == false) {
+                            System.out.println("Could not find such a recipe! Please try again");
+                        }
+                    }
+
+                    // if (r_num < recipeBook.size()) {
+                    //     System.out.println("Found a recipe for " + recipeBook.get(r_num).name + "!");
+                    //     recipeBook.get(r_num).printEverything();
+                    //     System.out.println("#######################################################\n");
+                    // }
+                    // else {
+                    //     System.out.println("Error: The number you typed is not in your recipe book!");
+                    // }
+                    // recipeBook.get(0).printEverything();
+                    // for (int i = 0; i < recipeBook.size(); i++) {
+                    //     System.out.println("Index " + i + " name: " + recipeBook.get(i).name);
+                    //     if (r_String.toLowerCase().equals(recipeBook.get(i).name.toLowerCase())) {
+                    //         System.out.println("Found a recipe for " + recipeBook.get(i).name + "!");
+                    //         recipeBook.get(i).printEverything();
+                    //         System.out.println("#######################################################\n");
+                    //     }
+                    // }
+                    //aaaaaaa
+                    // System.out.println("Found a recipe for " + recipeBook.get(r_num).name + "!");
+                    // recipeBook.get(r_num).printEverything();
+                    // System.out.println("#######################################################\n");
                 }
 
                 // System.out.println("Recipes:");

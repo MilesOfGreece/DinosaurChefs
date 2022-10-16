@@ -30,19 +30,20 @@ public class Recipe implements Serializable {
 
     public void printEverything() {
         System.out.println("Recipe Name: " + name);
-        System.out.println("Recipe Description: " + description);
+        System.out.println("Recipe Description: " + description + "\n");
         System.out.println("Ingredients:");
         for (int i = 0; i < ingredientssize; i++) {
             int num = i + 1;
             System.out.println(num + ".) " + ingredients.get(i));
             num++;
         }
-        System.out.println("Instructions:");
+        System.out.println("\nInstructions:");
         for (int i = 0; i < instructionssize; i++) {
             int num = i + 1;
             System.out.println(num + ".) " + instructions.get(i));
             num++;
         }
+        System.out.println("\n");
     }
 
 
