@@ -101,6 +101,7 @@ public class RecipeWriter {
                 if (userSearch.equals("1") || userSearch.toLowerCase().equals("search")) {
                     System.out.println("Type your recipe name here: ");
                     userSearch = scan2.next();
+                    userSearch = userSearch + scan2.nextLine();
                     for (int i = 0; i < recipeBook.size(); i++) {
                         String x = recipeBook.get(i).name;
                         if (x.toLowerCase().equals(userSearch.toLowerCase())) {
@@ -122,6 +123,8 @@ public class RecipeWriter {
                                     counter++;
                                     userSearch = scan2.next();
                                 }
+                            } else if (userSearch.equals("2")){
+                                recipeBook.get(i).printEverything();
                             }
                         }
                     }
