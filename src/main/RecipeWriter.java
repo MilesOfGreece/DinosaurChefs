@@ -206,7 +206,7 @@ public class RecipeWriter {
                 menu();
                 input1 = scan.next(); 
             }
-            //scan2.close(); 
+            //2scan2.close(); 
         }
         scan.close();
         System.out.println("");

@@ -12,6 +12,7 @@ public class Recipe implements Serializable {
     int instructionssize = instructions.size();
     int ingredientssize = ingredients.size();
 
+    // constructor
     public Recipe(String name, String description, ArrayList<String> ingredients, ArrayList<String> instructions) {
         this.name = name;
         this.description = description;
@@ -20,14 +21,30 @@ public class Recipe implements Serializable {
         this.instructionssize = instructions.size();
         this.ingredientssize = ingredients.size();
     }
+   
+    // getter for instructions
+    public ArrayList<String> getInstructions(){
+        return this.instructions;
+    }
 
-
+    // print ingredients 
     public void printIngredients(ArrayList<String> x, int y) {
         for(int i = 0; i < y; i++) {
             System.out.println(x.get(i));
         }
     }
-
+    // print recipe without steps
+    public void printAll_noInstruction(){
+        System.out.println("Recipe Name: " + name);
+        System.out.println("Recipe Description: " + description);
+        System.out.println("Ingredients:");
+        for (int i = 0; i < ingredientssize; i++) {
+            int num = i + 1;
+            System.out.println(num + ".) " + ingredients.get(i));
+            num++;
+        }
+    }
+    // print whole recipe
     public void printEverything() {
         System.out.println("Recipe Name: " + name);
         System.out.println("Recipe Description: " + description);
