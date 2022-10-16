@@ -88,9 +88,7 @@ public class RecipeWriter {
                 System.out.println("3.) Quit");
                 System.out.print("Type here: ");
                 input1 = scan.next(); //set their response to while loop variable
-            }
-
-            if (input1.equals("2") || input1.toLowerCase().equals("view")) {
+            } else if (input1.equals("2") || input1.toLowerCase().equals("view")) {
 
                 System.out.println("Would you like to search by name, or select from list? Type one of the following options: ");
                 System.out.println("1.) Search");
@@ -105,7 +103,7 @@ public class RecipeWriter {
                     for (int i = 0; i < recipeBook.size(); i++) {
                         String x = recipeBook.get(i).name;
                         if (x.toLowerCase().equals(userSearch.toLowerCase())) {
-                            System.out.println("Found a recipe for " + userSearch + "!");
+                            System.out.println("Found a recipe for " + userSearch.toLowerCase() + "!");
                             System.out.println("Would you like to view ingredients one by one? Or just view the entire recipe?");
                             System.out.println("Type one of the following options:");
                             System.out.println("1.) One by one");
@@ -125,6 +123,8 @@ public class RecipeWriter {
                                 }
                             } else if (userSearch.equals("2")){
                                 recipeBook.get(i).printEverything();
+                            } else {
+                                System.out.println("Invalid option");
                             }
                         }
                     }
@@ -193,6 +193,8 @@ public class RecipeWriter {
                     // System.out.println("Found a recipe for " + recipeBook.get(r_num).name + "!");
                     // recipeBook.get(r_num).printEverything();
                     // System.out.println("#######################################################\n");
+                } else {
+                    System.out.println("Invalid output, please try again");
                 }
 
                 // System.out.println("Recipes:");
